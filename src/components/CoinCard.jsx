@@ -1,10 +1,10 @@
 const CoinCard = ({ coins }) => {
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 mt-5'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 mt-15'>
       {coins.map((coin) => (
         <div
           key={coin.id}
-          className='p-3 bg-white rounded-lg  border border-gray-200 flex flex-col items-center text-center'
+          className='p-3 bg-white rounded-lg  border border-gray-200 flex flex-col items-center text-center hover:scale-105 transform transition duration-200'
         >
           <img src={coin.image} alt={coin.name} className='w-16 h-16 mb-2' />
           <h1 className='font-semibold text-lg'>{coin.name}</h1>
