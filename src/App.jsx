@@ -1,5 +1,34 @@
+import { useState, useEffect } from 'react';
+
+const API_URL =
+  'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false';
+
 const App = () => {
-  return <h1 className='mt-20 text-red-500'>Hello World</h1>;
+  const [coins, setCoins] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch data');
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setCoins(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  }, []);
+  return (
+    <h1 className='text-black-800 text-2xl text-center p-3'>
+      Crypto Dashboard
+    </h1>
+  );
 };
 
 export default App;
