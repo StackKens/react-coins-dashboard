@@ -1,21 +1,23 @@
 import { useState, useEffect } from 'react';
-import logo from '/public/favicon.png';
+import logo from '/favicon.png';
 import CoinCard from './components/CoinCard';
 import { FaSearch } from 'react-icons/fa';
 
-const API_URL =
-  'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
+  const [limit, setLimit] = useState(10);
 
   useEffect(() => {
     const fetchCoins = async () => {
       try {
-        const res = await fetch(API_URL);
+        const res = await fetch(
+          `${API_URL}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`,
+        );
         if (!res.ok) throw new Error('Failed to fetch data!');
         const data = await res.json();
         console.log(data);
@@ -28,7 +30,7 @@ const App = () => {
     };
 
     fetchCoins();
-  }, []);
+  }, [limit]);
 
   //searched coins
 
@@ -37,7 +39,7 @@ const App = () => {
   };
 
   const searchedCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(search.toLowerCase()),
+    coin.name.toLowerCase().includes(search.toLowerCase().trim()),
   );
 
   return (
@@ -53,7 +55,7 @@ const App = () => {
         </h1>
       </div>
 
-      <div className='px-6 pt-4'>
+      <div className='px-4 pt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6'>
         <div className='flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 bg-white max-w-sm  focus-within:border-blue-500'>
           <FaSearch size={16} className='text-gray-400' />
           <input
@@ -64,9 +66,27 @@ const App = () => {
             onChange={searchCoins}
           />
         </div>
+
+        <div className='px-5'>
+          <div className='flex items-center gap-2'>
+            <p>Filter</p>
+            <select
+              id='limit'
+              value={limit}
+              onChange={(e) => setLimit(Number(e.target.value))}
+              className=' outline-0 border border-gray-300 rounded px-3 py-1'
+            >
+              <option value='5'>5</option>
+              <option value='10'>10</option>
+              <option value='20'>20</option>
+              <option value='50'>50</option>
+              <option value='100'>100</option>
+            </select>
+          </div>
+        </div>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className='p-4'>Loading...</p>}
       {error && (
         <p className='font-medium text-red-600 p-2 text-center'>
           Sorry! An Error Occured!
