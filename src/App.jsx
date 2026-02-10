@@ -20,7 +20,6 @@ const App = () => {
         );
         if (!res.ok) throw new Error('Failed to fetch data!');
         const data = await res.json();
-        console.log(data);
         setCoins(data);
       } catch (err) {
         setError(err.message);
@@ -44,7 +43,7 @@ const App = () => {
 
   return (
     <>
-      <div className='flex space-x-4 gap-4 px-6 py-3 items-center  bg-neutral-200'>
+      <div className='flex space-x-4 gap-4 px-6 py-3 items-center bg-neutral-200'>
         <img
           src={logo}
           alt='crypto-dashboard-logo'
@@ -60,7 +59,7 @@ const App = () => {
           <FaSearch size={16} className='text-gray-400' />
           <input
             type='text'
-            placeholder='Search coins'
+            placeholder='Search coins by name'
             className='flex-1 text-sm outline-none bg-transparent '
             value={search}
             onChange={searchCoins}
@@ -79,7 +78,11 @@ const App = () => {
         </p>
       )}
 
-      <CoinCard key={coins.id} coins={searchedCoins} />
+      <CoinCard
+        key={coins.id}
+        coins={searchedCoins}
+        searchedCoins={searchedCoins}
+      />
     </>
   );
 };

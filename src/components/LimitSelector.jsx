@@ -1,7 +1,7 @@
 const LimitSelector = ({ limit, setLimit }) => {
   return (
     <div className='flex items-center gap-2'>
-      <p>Filter</p>
+      <p>Limit</p>
       <select
         id='limit'
         value={limit}

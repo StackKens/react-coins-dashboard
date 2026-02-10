@@ -1,4 +1,8 @@
-const CoinCard = ({ coins }) => {
+const CoinCard = ({ coins, searchedCoins }) => {
+  if (searchedCoins.length === 0)
+    return (
+      <p className='text-neutral-700 text-center p-4'>No matching coins!</p>
+    );
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 mt-15'>
       {coins.map((coin) => (
