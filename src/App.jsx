@@ -37,8 +37,10 @@ const App = () => {
     setSearch(e.target.value);
   };
 
-  const searchedCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(search.toLowerCase().trim()),
+  const searchedCoins = coins.filter(
+    (coin) =>
+      coin.name.toLowerCase().includes(search.toLowerCase().trim()) ||
+      coin.symbol.toLowerCase().includes(search.toLowerCase().trim()),
   );
 
   return (
