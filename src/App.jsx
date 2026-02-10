@@ -40,12 +40,32 @@ const App = () => {
 
       {loading && <p>Loading...</p>}
       {error && (
-        <p className='font-medium text-red-400 p-2'>Sorry! An Error Occured!</p>
+        <p className='font-medium text-red-600 p-2 text-center'>
+          Sorry! An Error Occured!
+        </p>
       )}
 
       <div>
         {coins.map((coin) => (
-          <p key={coin.id}>{coin.name}</p>
+          <div key={coin.id} className='p-6'>
+            <h1 className=' font-medium text-1xl'>{coin.name}</h1>
+            <img
+              src={coin.image}
+              alt={coin.name}
+              className='w-15 h-15 rounded-lg'
+            />
+
+            <p className='text-neutral-600'>{coin.symbol.toUpperCase()}</p>
+            <p>{coin.current_price.toLocaleString()}</p>
+            <p>Market_Cap: {coin.market_cap.toLocaleString()}</p>
+            <p
+              className={
+                coin.price_change_24h >= 0 ? 'text-green-400' : 'text-red-400'
+              }
+            >
+              {coin.price_change_24h.toLocaleString()}
+            </p>
+          </div>
         ))}
       </div>
     </>
