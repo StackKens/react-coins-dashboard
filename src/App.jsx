@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import logo from '/favicon.png';
 import CoinCard from './components/CoinCard';
 import { FaSearch } from 'react-icons/fa';
-
+import LimitSelector from './components/LimitSelector';
 const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
@@ -68,21 +68,7 @@ const App = () => {
         </div>
 
         <div className='px-5'>
-          <div className='flex items-center gap-2'>
-            <p>Filter</p>
-            <select
-              id='limit'
-              value={limit}
-              onChange={(e) => setLimit(Number(e.target.value))}
-              className=' outline-0 border border-gray-300 rounded px-3 py-1'
-            >
-              <option value='5'>5</option>
-              <option value='10'>10</option>
-              <option value='20'>20</option>
-              <option value='50'>50</option>
-              <option value='100'>100</option>
-            </select>
-          </div>
+          <LimitSelector limit={limit} setLimit={setLimit} />
         </div>
       </div>
 
@@ -92,6 +78,7 @@ const App = () => {
           Sorry! An Error Occured!
         </p>
       )}
+
       <CoinCard key={coins.id} coins={searchedCoins} />
     </>
   );
