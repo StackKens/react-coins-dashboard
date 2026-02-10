@@ -34,8 +34,11 @@ const App = () => {
 
   const searchCoins = (e) => {
     setSearch(e.target.value);
-    console.log(search);
   };
+
+  const searchedCoins = coins.filter((coin) =>
+    coin.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <>
@@ -57,6 +60,7 @@ const App = () => {
             type='text'
             placeholder='Search coins'
             className='flex-1 text-sm outline-none bg-transparent '
+            value={search}
             onChange={searchCoins}
           />
         </div>
@@ -68,7 +72,7 @@ const App = () => {
           Sorry! An Error Occured!
         </p>
       )}
-      <CoinCard key={coins.id} coins={coins} />
+      <CoinCard key={coins.id} coins={searchedCoins} />
     </>
   );
 };
