@@ -3,6 +3,7 @@ import CoinCard from '../components/CoinCard';
 import { FaSearch } from 'react-icons/fa';
 import Header from '../components/Header';
 import LimitSelector from '../components/LimitSelector';
+import Spinner from '../components/Spinner';
 const HomePage = ({
   coins,
   loading,
@@ -53,7 +54,7 @@ const HomePage = ({
         </div>
       </div>
 
-      {loading && <p className='p-4'>Loading...</p>}
+      {loading && <Spinner />}
       {error && (
         <p className='font-medium text-red-600 p-2 text-center'>
           Sorry! An Error Occured!
