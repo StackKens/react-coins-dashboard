@@ -40,6 +40,7 @@ const App = () => {
           path='/'
           element={
             <HomePage
+              limit={limit}
               coins={coins}
               loading={loading}
               error={error}
