@@ -1,6 +1,7 @@
 import logo from '/favicon.png';
 import CoinCard from '../components/CoinCard';
 import { FaSearch } from 'react-icons/fa';
+import Header from '../components/Header';
 import LimitSelector from '../components/LimitSelector';
 const HomePage = ({
   coins,
@@ -32,7 +33,9 @@ const HomePage = ({
           Crypto Dashboard
         </h1>
       </div>
-
+      <div>
+        <Header />
+      </div>
       <div className='px-4 pt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6'>
         <div className='flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 bg-white max-w-sm  focus-within:border-blue-500'>
           <FaSearch size={16} className='text-gray-400' />
