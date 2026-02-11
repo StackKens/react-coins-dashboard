@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import logo from '/favicon.png';
-import CoinCard from './components/CoinCard';
-import { FaSearch } from 'react-icons/fa';
-import LimitSelector from './components/LimitSelector';
+import { Route, Routes } from 'react-router';
+import HomePage from './pages/home';
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 const App = () => {
@@ -33,59 +32,22 @@ const App = () => {
 
   //searched coins
 
-  const searchCoins = (e) => {
-    setSearch(e.target.value);
-  };
-
-  const searchedCoins = coins.filter(
-    (coin) =>
-      coin.name.toLowerCase().includes(search.toLowerCase().trim()) ||
-      coin.symbol.toLowerCase().includes(search.toLowerCase().trim()),
-  );
-
   return (
-    <>
-      <div className='flex space-x-4 gap-4 px-6 py-3 items-center bg-neutral-200'>
-        <img
-          src={logo}
-          alt='crypto-dashboard-logo'
-          className='w-10 h-10  rounded-lg'
-        />
-        <h1 className='text-black-900 font-bold text-2xl  '>
-          Crypto Dashboard
-        </h1>
-      </div>
-
-      <div className='px-4 pt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6'>
-        <div className='flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 bg-white max-w-sm  focus-within:border-blue-500'>
-          <FaSearch size={16} className='text-gray-400' />
-          <input
-            type='text'
-            placeholder='Search coins by name'
-            className='flex-1 text-sm outline-none bg-transparent '
-            value={search}
-            onChange={searchCoins}
+    <Routes>
+      <Route
+        path='/'
+        element={
+          <HomePage
+            coins={coins}
+            loading={loading}
+            error={error}
+            search={search}
+            setLimit={setLimit}
+            setSearch={setSearch}
           />
-        </div>
-
-        <div className='px-5'>
-          <LimitSelector limit={limit} setLimit={setLimit} />
-        </div>
-      </div>
-
-      {loading && <p className='p-4'>Loading...</p>}
-      {error && (
-        <p className='font-medium text-red-600 p-2 text-center'>
-          Sorry! An Error Occured!
-        </p>
-      )}
-
-      <CoinCard
-        key={coins.id}
-        coins={searchedCoins}
-        searchedCoins={searchedCoins}
-      />
-    </>
+        }
+      ></Route>
+    </Routes>
   );
 };
 
